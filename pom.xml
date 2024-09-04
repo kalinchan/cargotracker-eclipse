@@ -134,12 +134,11 @@
   <profiles>
     <!-- The currently supported application servers are represented as profiles -->
     <profile>
-      <id>payara</id>
+      <id>payara-server-remote</id>
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-        <payara.version>6.2024.6</payara.version>
         <!-- Application properties -->
         <webapp.graphTraversalUrl>http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path</webapp.graphTraversalUrl>
         <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
@@ -164,26 +163,13 @@
           <version>2.2.224</version>
           <scope>runtime</scope>
         </dependency>
-        <dependency>
-          <groupId>fish.payara.extras</groupId>
-          <artifactId>payara-micro</artifactId>
-          <version>${payara.version}</version>
-          <scope>test</scope>
-        </dependency>
         <!-- Payara Micro Managed Container Adapter -->
         <dependency>
           <groupId>fish.payara.arquillian</groupId>
-          <artifactId>arquillian-payara-micro-managed</artifactId>
+          <artifactId>arquillian-payara-server-remote</artifactId>
           <version>3.0.alpha8</version>
           <scope>test</scope>
         </dependency>
-        <!-- Needed at the moment for Jakarta EE 10 support -->
-        <dependency>
-          <groupId>fish.payara.arquillian</groupId>
-          <artifactId>payara-client-ee9</artifactId>
-          <version>3.0.alpha8</version>
-          <scope>test</scope>
-        </dependency>        
       </dependencies>
       <build>
         <plugins>
@@ -199,12 +185,6 @@
             <configuration>
               <container>
                 <containerId>payara</containerId>
-                <artifactInstaller>
-                  <groupId>fish.payara.distributions</groupId>
-                  <artifactId>payara</artifactId>
-                  <version>${payara.version}</version>
-                </artifactInstaller>
-                <timeout>180000</timeout>
               </container>
             </configuration>
           </plugin>
